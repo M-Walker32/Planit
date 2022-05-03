@@ -33,15 +33,6 @@ export class ProjectsController extends BaseController {
     }
   }
 
-  // async getSprints(req, res, next) {
-  //   try {
-  //     const sprints
-  //     res.send(sprints)
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
-
   async createProject(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id

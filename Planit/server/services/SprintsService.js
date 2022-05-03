@@ -1,18 +1,8 @@
 import { dbContext } from '../db/DbContext.js'
 
 class SprintsService {
-  async getAllSprints(projectId) {
-    const sprints = await dbContext.Sprints.find({ projectId })
-    return sprints
-  }
-
-  async getSprintById(id) {
-    const sprint = await dbContext.Sprints.findById(id)
-    return sprint
-  }
-
-  async getSprintsByProject(creatorId) {
-    const sprints = await dbContext.Sprints.find({ creatorId })
+  async getSprintsByProject(projectId) {
+    const sprints = await dbContext.Sprints.find({ projectId }).populate('creator')
     return sprints
   }
 

@@ -14,3 +14,15 @@ NoteSchema.virtual('creator', {
   foreignField: '_id',
   justOne: true
 })
+NoteSchema.virtual('project', {
+  localField: 'projectId',
+  ref: 'Project',
+  foreignField: '_id',
+  justOne: true
+})
+NoteSchema.virtual('task', {
+  localField: 'taskId',
+  ref: 'Task',
+  foreignField: '_id',
+  justOne: true
+})
