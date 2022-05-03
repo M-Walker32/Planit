@@ -40,14 +40,6 @@
     <template #modal-body-slot>
       <ProjectForm />
     </template>
-    <template #modal-footy-slot>
-      <div>
-        <button data-bs-target="#create-project-modal" data-bs-toggle="modal">
-          Cancel
-        </button>
-        <button @click="createProject">Launch</button>
-      </div>
-    </template>
   </Modal>
 </template>
 
@@ -64,10 +56,6 @@ export default {
     })
     return {
       projects: computed(() => AppState.projects),
-      async createProject() {
-        // open modal
-        const project = await projectsService.createProject()
-      }
     }
   }
 }

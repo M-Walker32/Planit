@@ -10,6 +10,7 @@
 
 <script>
 import { useRouter } from "vue-router"
+import { AppState } from "../AppState.js"
 // TODO format data object
 export default {
   props: {
@@ -22,6 +23,7 @@ export default {
     const router = useRouter()
     return {
       goToProject() {
+        AppState.activeProject = props.project
         router.push({ name: 'ProjectPage', params: { projectId: props.project.id } })
       }
     }

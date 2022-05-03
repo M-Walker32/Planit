@@ -20,26 +20,7 @@
         </div>
 
         <div class="modal-body"><slot name="modal-body-slot"></slot></div>
-
-        <div class="modal-footer">
-          <slot name="modal-footy-slot">
-            <!-- footer -->
-          </slot>
-        </div>
       </div>
     </div>
   </div>
 </template>
-
-
-<script>
-export default {
-  setup() {
-    return {}
-  }
-}
-</script>
-
-
-<style lang="scss" scoped>
-</style>
