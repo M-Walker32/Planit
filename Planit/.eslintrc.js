@@ -8,12 +8,13 @@ module.exports = {
   env: {
     node: true
   },
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   extends: [
     'standard'
   ],
   parserOptions: {
-    ecmaVersion: 2020
+    ecmaVersion: 2020,
+    requireConfigFile: false
   },
   rules: {
     'no-unused-vars': PROD ? ERROR : WARN,
