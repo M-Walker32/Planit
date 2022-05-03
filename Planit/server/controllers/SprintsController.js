@@ -35,7 +35,6 @@ export class SprintsController extends BaseController {
 
   async removeSprint(req, res, next) {
     try {
-      req.body.id = req.params.id
       const sprint = await sprintsService.removeSprint(req.params.id)
       res.send(sprint)
     } catch (error) {
