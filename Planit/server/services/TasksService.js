@@ -25,7 +25,7 @@ class TasksService {
       throw new BadRequest("Couldn't find that task")
     }
     original.name = update.name || original.name
-    original.isComplete = update.isComplete || original.isComplete
+    original.isComplete = update.isComplete == null ? original.isComplete : update.isComplete
     original.completedOn = update.completedOn || original.completedOn
     original.assignedTo = update.assignedTo || original.assignedTo
     original.sprintId = update.sprintId || original.sprintId

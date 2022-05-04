@@ -8,6 +8,12 @@ class ProjectsService {
     AppState.projects = res.data
     // logger.log(res.data) 
   }
+  async getProjectById(projectId){
+    const res = await api.get(`api/projects/${projectId}`)
+    console.log(res.data)
+    AppState.activeProject = res.data
+  }
+
   async createProject(editable){
     const res = await api.post('api/projects', editable)
     AppState.projects.unshift(res.data)

@@ -2,7 +2,6 @@
   <div class="container full-page">
     <div class="row full-page">
       <div class="col-12">
-        <h6>PIRANA</h6>
         <div class="d-flex">
           <h1>{{ project.name }}</h1>
           <button @click="deleteProject">Delete</button>
@@ -12,7 +11,9 @@
       <div class="col-12">
         <div class="d-flex">
           <h3>Sprints</h3>
-          <button @click="deleteSprint">Create Sprint</button>
+          <button data-bs-toggle="modal" data-bs-target="#create-sprint-modal">
+            Create Sprint
+          </button>
         </div>
       </div>
       <div class="col-12">
@@ -20,6 +21,15 @@
       </div>
     </div>
   </div>
+
+  <Modal id="create-sprint-modal">
+    <template #modal-title-slot>
+      <h3>Create Sprint!</h3>
+    </template>
+    <template #modal-body-slot>
+      <SprintForm />
+    </template>
+  </Modal>
 </template>
 
 
@@ -31,6 +41,7 @@ import Pop from "../utils/Pop.js"
 import { logger } from "../utils/Logger.js"
 import { projectsService } from "../services/ProjectsService.js"
 import { sprintsService } from "../services/SprintsService.js"
+import { tasksService } from "../services/TasksService.js"
 export default {
   name: 'ProjectPage',
   setup() {
@@ -38,15 +49,18 @@ export default {
     const router = useRouter()
     onMounted(async () => {
       try {
+        await projectsService.getProjectById(route.params.projectId)
         await sprintsService.getSprintsByProject(route.params.projectId)
+        await tasksService.getTasksByProject(route.params.projectId)
       } catch (error) {
         logger.error(error)
         Pop.toast(error.message, 'error')
       }
     })
     return {
-      project: computed(() => AppState.activeProject),
+      // project: computed(() => AppState.activeProject),
       sprints: computed(() => AppState.sprints),
+      project: computed(() => AppState.activeProject),
       async deleteProject() {
         try {
           if (await Pop.confirm()) {

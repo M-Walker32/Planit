@@ -32,7 +32,7 @@ class ProjectsService {
       const project = await dbContext.Projects.findByIdAndDelete(id)
       return project
     } else {
-      throw new BadRequest("Coulnd't find that project")
+      throw new BadRequest("Couldn't find that project")
     }
   }
 }

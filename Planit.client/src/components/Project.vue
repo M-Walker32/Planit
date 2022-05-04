@@ -23,7 +23,6 @@ export default {
     const router = useRouter()
     return {
       goToProject() {
-        AppState.activeProject = props.project
         router.push({ name: 'ProjectPage', params: { projectId: props.project.id } })
       }
     }

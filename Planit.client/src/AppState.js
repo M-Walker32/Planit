@@ -6,5 +6,7 @@ export const AppState = reactive({
   account: {},
   projects: [],
   activeProject: {},
-  sprints: []
+  sprints: [],
+  tasks: [],
+  activeSprint: {}
 })
