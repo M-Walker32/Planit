@@ -1,3 +1,4 @@
+import { BadRequest } from '@bcwdev/auth0provider/lib/Errors'
 import { dbContext } from '../db/DbContext'
 
 // Private Methods
@@ -73,6 +74,20 @@ class AccountService {
       { runValidators: true, setDefaultsOnInsert: true, new: true }
     )
     return account
+  }
+
+  async editAccount(user, update) {
+    const original = await dbContext.Account.findOne({
+      _id: user.id
+    })
+    if (!original) {
+      throw new BadRequest('user not found')
+    }
+    original.title = update.title || original.title
+    original.name = update.name || original.name
+    original.picture = update.picture || original.picture
+    await original.save()
+    return original
   }
 }
 export const accountService = new AccountService()

@@ -17,7 +17,7 @@
       >
         Add Task
       </button>
-      <h5>1/2 Complete</h5>
+      <h5>{{ completedTasks }} / {{ totalTasks }}</h5>
     </div>
   </div>
   <hr />
@@ -59,8 +59,17 @@ export default {
       })
       totalWeight.value = calc
     })
+    let completedTasks = ref(0)
+    let totalTasks = ref(0)
+    watchEffect(() => {
+      let tasks = AppState.tasks.filter(t => t.sprintId == props.sprint.id)
+      totalTasks.value = tasks.length
+      completedTasks.value = tasks.filter(t => t.isComplete == true).length
+    })
     return {
       totalWeight,
+      completedTasks,
+      totalTasks,
       activeProject: computed(() => AppState.activeProject),
       tasks: computed(() => AppState.tasks.filter(t => t.sprintId == props.sprint.id)
       ),

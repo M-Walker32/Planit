@@ -14,7 +14,11 @@
     <div class="d-flex justify-content-around">
       <div>
         <span># notes</span>
-        <i class="mdi mdi-note"></i>
+        <i
+          class="mdi mdi-note"
+          data-bs-toggle="offcanvas"
+          :data-bs-target="'#task-details-' + task.id"
+        ></i>
       </div>
       <div>
         <span>{{ task.weight }}</span>
@@ -50,6 +54,29 @@
       </div>
     </div>
   </div>
+  <OffCanvas :id="'task-details-' + task.id" class="offcanvas offcanvas-end">
+    <template #offcanvas-header-slot>
+      {{ task.sprint.name }}
+    </template>
+    <template #offcanvas-task-slot>
+      <!-- task deeets -->
+      im a task
+    </template>
+    <template #offcanvas-note-slot>
+      <label for="add-note-input">Add a note</label>
+      <form @submit.prevent="createNote">
+        <input
+          name="add-note-input"
+          type="text"
+          v-model="editable.body"
+          placeholder="say sumthin"
+        />
+        <button type="submit">+</button>
+      </form>
+      <Note v-for="n in notes" :key="n.id" :note="n" />
+      <!-- notes go here -->
+    </template>
+  </OffCanvas>
 </template>
 
 
@@ -58,8 +85,10 @@ import { logger } from "../utils/Logger.js"
 import Pop from "../utils/Pop.js"
 import { tasksService } from "../services/TasksService.js"
 import { useRoute } from "vue-router"
-import { computed } from "@vue/reactivity"
+import { computed, ref } from "@vue/reactivity"
 import { AppState } from "../AppState.js"
+import { applyStyles } from "@popperjs/core"
+import { notesService } from "../services/NotesService.js"
 export default {
   props: {
     task: {
@@ -68,9 +97,13 @@ export default {
     }
   },
   setup(props) {
+    const editable = ref({})
     const route = useRoute()
     return {
+      editable,
       sprints: computed(() => AppState.sprints),
+      notes: computed(() => AppState.notes.filter(n => n.taskId == props.task.id)),
+      account: computed(() => AppState.account),
       async deleteTask() {
         try {
           if (await Pop.confirm()) {
@@ -92,6 +125,17 @@ export default {
       async changeSprint(sprintId) {
         try {
           await tasksService.changeSprint(props.task, sprintId)
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+      },
+      async createNote() {
+        try {
+          editable.value.taskId = props.task.id
+          editable.value.projectId = route.params.projectId
+          editable.value.creatorId = this.account.id
+          await notesService.createNote(editable.value)
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

@@ -6,6 +6,7 @@ class TasksService {
   async getTasksByProject(projectId){
     const res = await api.get(`api/projects/${projectId}/tasks`)
     AppState.tasks = res.data
+    logger.log(res.data)
   }
   async createTask(formData){
     const res = await api.post(`api/projects/${formData.projectId}/tasks/`, formData)

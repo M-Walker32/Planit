@@ -12,7 +12,7 @@ class TasksService {
 
   async getTasksByProject(projectId) {
   //  will this work?
-    return await dbContext.Tasks.find({ projectId }).populate('creator').populate('project')
+    return await dbContext.Tasks.find({ projectId }).populate('creator').populate('project').populate('sprint')
   }
 
   async getTaskById(id) {

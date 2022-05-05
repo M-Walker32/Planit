@@ -2,12 +2,12 @@ import { dbContext } from '../db/DbContext.js'
 
 class NotesService {
   async getNotesByProject(projectId) {
-    const notes = await dbContext.Notes.find({ projectId })
+    const notes = await dbContext.Notes.find({ projectId }).populate('creator').populate('project').populate('task')
     return notes
   }
 
   async getNotesByTask(taskId) {
-    const notes = await dbContext.Notes.find({ taskId })
+    const notes = await dbContext.Notes.find({ taskId }).populate('creator').populate('project').populate('task')
     return notes
   }
 

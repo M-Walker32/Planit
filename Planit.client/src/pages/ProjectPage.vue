@@ -42,6 +42,7 @@ import { logger } from "../utils/Logger.js"
 import { projectsService } from "../services/ProjectsService.js"
 import { sprintsService } from "../services/SprintsService.js"
 import { tasksService } from "../services/TasksService.js"
+import { notesService } from "../services/NotesService.js"
 export default {
   name: 'ProjectPage',
   setup() {
@@ -52,6 +53,7 @@ export default {
         await projectsService.getProjectById(route.params.projectId)
         await sprintsService.getSprintsByProject(route.params.projectId)
         await tasksService.getTasksByProject(route.params.projectId)
+        await notesService.getNotesByProject(route.params.projectId)
       } catch (error) {
         logger.error(error)
         Pop.toast(error.message, 'error')
