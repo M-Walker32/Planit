@@ -4,7 +4,7 @@
       <div class="col-12">
         <div class="box">
           <div class="d-flex justify-content-between m-2">
-            <h3>Projects Page</h3>
+            <h3 class="">Projects Page</h3>
             <button
               type="button"
               class="btn btn-primary btn-lg"
@@ -14,10 +14,10 @@
               Create Project
             </button>
           </div>
-          <div class="div">
+          <div class="p-4 shadow bg-secondary rounded">
             <table class="table">
               <thead>
-                <tr>
+                <tr class="text-light font">
                   <th scope="col">Name</th>
                   <th scope="col">Members</th>
                   <th scope="col">Started</th>
@@ -68,5 +68,11 @@ export default {
   min-height: 80vh;
   background-color: var(--light);
   margin: 2em;
+}
+.font {
+  font-family: "Exo", Arial, Helvetica, sans-serif, sans-serif;
+}
+tbody {
+  border-top: none !important;
 }
 </style>

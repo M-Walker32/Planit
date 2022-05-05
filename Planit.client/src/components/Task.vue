@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-around m-2">
+  <div class="d-flex justify-content-between m-2">
     <div>
       <input
         type="checkbox"
@@ -11,24 +11,24 @@
       <span>{{ task.name }}</span>
       <i class="mdi mdi-delete-outline" @click="deleteTask"></i>
     </div>
-    <div class="d-flex justify-content-around">
+    <div class="d-flex justify-content-between">
       <div>
-        <span># notes</span>
+        <span>{{ numNotes }}</span>
         <i
-          class="mdi mdi-note"
+          class="mdi mdi-note selectable text-primary darken-10"
           data-bs-toggle="offcanvas"
           :data-bs-target="'#task-details-' + task.id"
         ></i>
       </div>
       <div>
         <span>{{ task.weight }}</span>
-        <i class="mdi mdi-weight"></i>
+        <i class="mdi mdi-weight text-primary darken-10"></i>
       </div>
     </div>
     <div>
       <div class="dropdown">
         <button
-          class="btn btn-secondary dropdown-toggle"
+          class="button-nice dropdown-toggle"
           type="button"
           id="dropdownMenuButton1"
           data-bs-toggle="dropdown"
@@ -54,6 +54,7 @@
       </div>
     </div>
   </div>
+  <hr />
   <OffCanvas :id="'task-details-' + task.id" class="offcanvas offcanvas-end">
     <template #offcanvas-header-slot>
       {{ task.sprint.name }}
@@ -71,7 +72,7 @@
           v-model="editable.body"
           placeholder="say sumthin"
         />
-        <button type="submit">+</button>
+        <button type="submit" class="button-nice">+</button>
       </form>
       <Note v-for="n in notes" :key="n.id" :note="n" />
       <!-- notes go here -->
@@ -89,6 +90,7 @@ import { computed, ref } from "@vue/reactivity"
 import { AppState } from "../AppState.js"
 import { applyStyles } from "@popperjs/core"
 import { notesService } from "../services/NotesService.js"
+import { watchEffect } from "@vue/runtime-core"
 export default {
   props: {
     task: {
@@ -99,7 +101,12 @@ export default {
   setup(props) {
     const editable = ref({})
     const route = useRoute()
+    let numNotes = ref(0)
+    watchEffect(() => {
+      numNotes.value = AppState.notes.filter(n => n.taskId === props.task.id).length
+    })
     return {
+      numNotes,
       editable,
       sprints: computed(() => AppState.sprints),
       notes: computed(() => AppState.notes.filter(n => n.taskId == props.task.id)),

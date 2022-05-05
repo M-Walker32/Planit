@@ -1,9 +1,9 @@
 <template>
-  <div class="d-flex m-2 justify-content-between">
+  <div class="d-flex my-2 bg-dark rounded p-3 col-12 justify-content-between">
     <div class="d-flex p-2 align-items-center">
       <i class="m-2 mdi mdi-account-cowboy-hat"></i>
-      <h3 class="m-2">{{ sprint.name }}</h3>
-      <button @click="deleteSprint">Delete Sprint</button>
+      <h3 class="m-2 text-light">{{ sprint.name }}</h3>
+      <button @click="deleteSprint" class="button-nice">Delete Sprint</button>
     </div>
     <div class="p-2 d-flex align-items-center">
       <span>{{ totalWeight }}</span>
@@ -11,7 +11,7 @@
     </div>
     <div class="d-flex align-items-center">
       <button
-        class="m-2"
+        class="button-nice"
         data-bs-toggle="modal"
         :data-bs-target="'#create-task-modal-' + sprint.id"
       >
@@ -20,9 +20,7 @@
       <h5>{{ completedTasks }} / {{ totalTasks }}</h5>
     </div>
   </div>
-  <hr />
   <Task v-for="task in tasks" :key="task.id" :task="task" />
-  <hr />
 
   <Modal :id="'create-task-modal-' + sprint.id">
     <template #modal-title-slot>

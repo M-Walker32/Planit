@@ -5,11 +5,7 @@
   <main>
     <router-view />
   </main>
-  <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
-    </div>
-  </footer>
+  <footer></footer>
 </template>
 
 <script>
@@ -25,6 +21,18 @@ export default {
 }
 </script>
 <style lang="scss">
-@import "./assets/scss/main.scss";
+span {
+  font-family: "Exo", Arial, Helvetica, sans-serif, sans-serif;
+}
+p {
+  font-family: "Exo", Arial, Helvetica, sans-serif, sans-serif;
+}
 
+h1 {
+  font-family: "Exo", Arial, Helvetica, sans-serif, sans-serif;
+}
+h5 {
+  font-family: "Exo", Arial, Helvetica, sans-serif, sans-serif;
+}
+@import "./assets/scss/main.scss";
 </style>

@@ -38,7 +38,7 @@ export default {
           editable.value.creatorId = this.account.id
           await sprintsService.createSprint(editable.value)
           Modal.getOrCreateInstance(document.getElementById('create-sprint-modal')).toggle()
-          editable.value = ''
+          editable.value = {}
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

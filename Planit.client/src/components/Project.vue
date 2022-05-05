@@ -1,17 +1,22 @@
 
 <template>
-  <tr class="selectable bg-grey" @click="goToProject">
+  <tr class="selectable bg-secondary lighten-20" @click="goToProject">
     <td>{{ project.name }}</td>
-    <td><img src="" alt="" /><img src="" alt="" /><img src="" alt="" /></td>
-    <td>{{ new Date(project.createdAt).toString() }}</td>
+    <td>
+      <img class="profile-img rounded" :src="account.picture" alt="" /><img
+        src=""
+        alt=""
+      /><img src="" alt="" />
+    </td>
+    <td>{{ new Date(project.createdAt).toDateString() }}</td>
   </tr>
 </template>
 
 
 <script>
+import { computed } from "@vue/reactivity"
 import { useRouter } from "vue-router"
 import { AppState } from "../AppState.js"
-// TODO format data object
 export default {
   props: {
     project: {
@@ -22,8 +27,11 @@ export default {
   setup(props) {
     const router = useRouter()
     return {
-      goToProject() {
-        router.push({ name: 'ProjectPage', params: { projectId: props.project.id } })
+      account: computed(() => AppState.account),
+      async goToProject() {
+        AppState.activeProject = AppState.projects.filter(p => props.project.id === p.id)
+        router.replace({ name: 'ProjectPage', params: { projectId: props.project.id }, replace: true })
+
       }
     }
   }
@@ -32,4 +40,15 @@ export default {
 
 
 <style lang="scss" scoped>
+tr {
+  font-family: "Exo", Arial, Helvetica, sans-serif, sans-serif;
+}
+td {
+  color: var(--dark);
+  font-family: "Exo", Arial, Helvetica, sans-serif, sans-serif;
+}
+.profile-img {
+  max-width: 40px;
+  height: auto;
+}
 </style>

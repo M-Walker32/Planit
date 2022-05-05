@@ -1,23 +1,34 @@
 <template>
   <div class="container full-page">
     <div class="row full-page">
-      <div class="col-12">
+      <div class="col-12 my-5">
         <div class="d-flex">
-          <h1>{{ project.name }}</h1>
-          <button @click="deleteProject">Delete</button>
+          <h1>{{ activeProject.name }}</h1>
+          <button @click="deleteProject" class="button-nice">Delete</button>
         </div>
-        <p>{{ project.description }}</p>
+        <p>{{ activeProject.description }}</p>
       </div>
       <div class="col-12">
-        <div class="d-flex">
-          <h3>Sprints</h3>
-          <button data-bs-toggle="modal" data-bs-target="#create-sprint-modal">
-            Create Sprint
+        <div class="d-flex justify-content-between">
+          <h3 class="">Sprints</h3>
+          <button
+            data-bs-toggle="modal"
+            class="button-nice"
+            data-bs-target="#create-sprint-modal"
+          >
+            +
           </button>
         </div>
       </div>
       <div class="col-12">
         <Sprint v-for="s in sprints" :key="s.id" :sprint="s" />
+      </div>
+      <div
+        class="fab bg-primary rounded selectable"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#projects-selector"
+      >
+        <i class="mdi mdi-arrow-expand-right"></i>
       </div>
     </div>
   </div>
@@ -30,11 +41,32 @@
       <SprintForm />
     </template>
   </Modal>
+
+  <OffCanvas id="projects-selector" class="offcanvas offcanvas-start">
+    <template #offcanvas-header-slot>
+      <h4>Projects</h4>
+    </template>
+    <template #offcanvas-note-slot>
+      <table class="table">
+        <thead>
+          <tr class="text-dark font">
+            <th scope="col">Name</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <Project v-for="p in projects" :key="p.id" :project="p" />
+          <!-- Projects go here -->
+        </tbody>
+      </table>
+    </template>
+  </OffCanvas>
 </template>
 
 
 <script>
-import { computed, onMounted } from "@vue/runtime-core"
+import { computed, onMounted, watchEffect } from "@vue/runtime-core"
 import { AppState } from "../AppState.js"
 import { useRoute, useRouter } from "vue-router"
 import Pop from "../utils/Pop.js"
@@ -43,31 +75,36 @@ import { projectsService } from "../services/ProjectsService.js"
 import { sprintsService } from "../services/SprintsService.js"
 import { tasksService } from "../services/TasksService.js"
 import { notesService } from "../services/NotesService.js"
+import { routes } from "../router.js"
 export default {
   name: 'ProjectPage',
   setup() {
     const route = useRoute()
     const router = useRouter()
-    onMounted(async () => {
+    watchEffect(async () => {
+      route.params
       try {
-        await projectsService.getProjectById(route.params.projectId)
-        await sprintsService.getSprintsByProject(route.params.projectId)
-        await tasksService.getTasksByProject(route.params.projectId)
-        await notesService.getNotesByProject(route.params.projectId)
+        if (route.name == 'ProjectPage') {
+          await projectsService.getAllProjects()
+          await projectsService.getProjectById(route.params.projectId)
+          await sprintsService.getSprintsByProject(route.params.projectId)
+          await tasksService.getTasksByProject(route.params.projectId)
+          await notesService.getNotesByProject(route.params.projectId)
+        }
       } catch (error) {
         logger.error(error)
         Pop.toast(error.message, 'error')
       }
     })
     return {
-      // project: computed(() => AppState.activeProject),
       sprints: computed(() => AppState.sprints),
-      project: computed(() => AppState.activeProject),
+      activeProject: computed(() => AppState.activeProject),
+      projects: computed(() => AppState.projects),
       async deleteProject() {
         try {
           if (await Pop.confirm()) {
-            await projectsService.deleteProject(this.project.id)
             router.push({ name: 'Home' })
+            await projectsService.deleteProject(this.activeProject.id)
           }
         } catch (error) {
           logger.error(error)
@@ -81,4 +118,11 @@ export default {
 
 
 <style lang="scss" scoped>
+.fab {
+  position: absolute;
+  left: 1em;
+  bottom: 1em;
+  min-width: fit-content;
+  max-width: 2em;
+}
 </style>

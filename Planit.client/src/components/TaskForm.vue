@@ -55,7 +55,7 @@ export default {
           editable.value.creatorId = this.account.id
           await tasksService.createTask(editable.value)
           Modal.getOrCreateInstance(document.getElementById(`create-task-modal-${props.sprint.id}`)).toggle()
-          editable.value = ''
+          editable.value = {}
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

@@ -5,7 +5,7 @@ function loadPage(page) {
   return () => import(`./pages/${page}.vue`)
 }
 
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'Home',
