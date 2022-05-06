@@ -1,8 +1,9 @@
 <template>
   <form @submit.prevent="createProject">
     <div class="mb-3">
-      <span class="" id=""></span>
+      <label for="project-name" class="visually-hidden">Add project name</label>
       <input
+      name="project-name"
         type="text"
         class=""
         placeholder="Name your project"
@@ -10,17 +11,18 @@
       />
     </div>
     <div class="mb-3">
-      <span class="" id=""></span>
+      <label for="project-description" class="visually-hidden">Add description</label>
       <input
+        name="project-description"
         type="text"
         class=""
         placeholder="Give it a description"
         v-model="editable.description"
       />
     </div>
-    <div>
-      <button data-bs-dismiss="modal">Cancel</button>
-      <button type="submit">Launch</button>
+    <div class="d-flex justify-content-end">
+      <button class="button-nice" data-bs-dismiss="modal">Cancel</button>
+      <button class="ms-2 button-nice" type="submit">Launch</button>
     </div>
   </form>
 </template>

@@ -24,11 +24,12 @@
         Delete
       </button>
     </div>
+    <div class="d-flex">
     <div class="p-2 d-flex align-items-center">
-      <span>{{ totalWeight }}</span>
+      <h5>{{ totalWeight }}</h5>
       <i class="mdi mdi-weight-lifter"></i>
     </div>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center ms-3">
       <button
         class="button-nice mx-2"
         data-toggle="tooltip"
@@ -42,6 +43,7 @@
       <h5 class="align-items-bottom">
         {{ completedTasks }} / {{ totalTasks }}
       </h5>
+    </div>
     </div>
   </div>
   <Task v-for="task in tasks" :key="task.id" :task="task" />
@@ -111,6 +113,11 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
+h5{
+  margin-bottom: 0!important;
+}
+i{
+  font-size: 20pt;
+}
 </style>

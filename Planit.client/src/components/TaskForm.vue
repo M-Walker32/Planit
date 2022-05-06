@@ -1,12 +1,13 @@
 <template>
   <form :id="'create-task-' + sprint.id" @submit.prevent="createTask">
     <div class="mb-3">
-      <span class="" id=""></span>
-      <input type="text" placeholder="Name your task" v-model="editable.name" />
+      <label :for="'sprint-name' + sprint.id" class="visually-hidden">name your sprint</label>
+      <input :id="'sprint-name' + sprint.id" type="text" placeholder="Name your task" v-model="editable.name" />
     </div>
     <div class="mb-3">
-      <span class="" id=""></span>
+      <label :for="'sprint-weight' + sprint.id" class="visually-hidden">weight of the sprint</label>
       <input
+        :id="'sprint-weight' + sprint.id"
         type="number"
         placeholder="Task weight"
         v-model="editable.weight"

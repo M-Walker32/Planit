@@ -63,8 +63,7 @@
         <form @submit.prevent="editAccount">
           <div class="d-flex justify-content-between">
             <div class="mb-3">
-              <p class="text-dark">Title:</p>
-              <label name="title"></label>
+              <label class="text-dark" for="new-profile-title">Title:</label>
               <input
                 name="new-profile-title"
                 type="text"
@@ -73,7 +72,7 @@
               />
             </div>
             <div class="mb-3">
-              <p class="text-dark">Name:</p>
+              <label class="text-dark" for="new-profile-name">Name:</label>
               <input
                 name="new-profile-name"
                 type="text"
@@ -82,8 +81,8 @@
               />
             </div>
           </div>
-          <div class="mb-3">
-            <p class="text-dark">Picture:</p>
+          <div class="d-flex flex-column align-items-center mb-3">
+            <label class="text-dark" for="new-profile-picture">Picture:</label>
             <input
               name="new-profile-picture"
               type="text"

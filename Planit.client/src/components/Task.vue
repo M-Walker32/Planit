@@ -1,17 +1,17 @@
 <template>
   <div class="d-flex justify-content-between m-2">
     <div class="align-items-center">
+      <label class="visually-hidden" :for="'task-complete'+task.id">check complete</label>
       <input
         type="checkbox"
-        name=""
-        id=""
+        :id="'task-complete'+task.id"
         :checked="task.isComplete"
         @click="toggleComplete"
         class="mx-2"
       />
       <span>{{ task.name }}</span>
       <i
-        class="mdi mdi-delete-outline on-hover"
+        class="mdi mdi-delete-outline selectable on-hover"
         title="Delete Task"
         @click="deleteTask"
       ></i>
@@ -24,6 +24,7 @@
           id="dropdownMenuButton1"
           data-bs-toggle="dropdown"
           aria-expanded="false"
+          aria-label="change this task's sprint"
         >
           Select Sprint
         </button>
@@ -55,18 +56,36 @@
           </div>
           <div class="mx-2">
             <span>{{ task.weight }}</span>
-            <i class="mdi mdi-weight text-dark"></i>
+            <i class="mdi mdi-weight text-dark" title="Task Weight"></i>
           </div>
         </div>
       </div>
     </div>
   </div>
   <hr />
-  <OffCanvas :id="'task-details-' + task.id" class="offcanvas offcanvas-end">
-    <template #offcanvas-header-slot>
+  <OffCanvas :id="'task-details-' + task.id" class="offcanvas offcanvas-end bg-light">
+    <template #offcanvas-header-slot >
       {{ task.sprint.name }}
     </template>
     <template #offcanvas-task-slot>
+      <h6><strong>Status</strong></h6>
+      <div class="d-flex justify-content-center">
+        <div :class="'me-2 indicator rounded p-2' + (task.isComplete ? '' : ' bg-danger')">
+          <span>Pending</span>
+        </div>
+          <hr class="dash">
+        <div :class="'ms-2 indicator rounded p-2' + (task.isComplete ? ' bg-success' : '')">
+          <span>Done</span>
+        </div>
+      </div>
+      
+      <!-- notes go here -->
+    </template>
+    <template #offcanvas-note-slot>
+      <div class="d-flex justify-content-center">
+      <h5><strong>Notes</strong></h5>
+      </div>
+      <hr class="mb-3">
       <h5><label for="add-note-input">Add a note</label></h5>
       <form @submit.prevent="createNote">
         <input
@@ -78,8 +97,8 @@
         />
         <button type="submit" title="create note" class="button-nice">+</button>
       </form>
+      
       <Note v-for="n in notes" :key="n.id" :note="n" />
-      <!-- notes go here -->
     </template>
   </OffCanvas>
 </template>
@@ -92,7 +111,6 @@ import { tasksService } from "../services/TasksService.js"
 import { useRoute } from "vue-router"
 import { computed, ref } from "@vue/reactivity"
 import { AppState } from "../AppState.js"
-import { applyStyles } from "@popperjs/core"
 import { notesService } from "../services/NotesService.js"
 import { watchEffect } from "@vue/runtime-core"
 export default {
@@ -143,10 +161,15 @@ export default {
       },
       async createNote() {
         try {
+          if(!editable.value.body){
+            Pop.toast('Please provide a body for your note')
+            return
+          }
           editable.value.taskId = props.task.id
           editable.value.projectId = route.params.projectId
           editable.value.creatorId = this.account.id
           await notesService.createNote(editable.value)
+          editable.value = {}
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')
@@ -159,4 +182,12 @@ export default {
 
 
 <style lang="scss" scoped>
+.indicator{
+  // min-height: 3rem;
+  // min-width: 5rem;
+}
+.dash{
+  min-height: 2px;
+  min-width: 25%;
+}
 </style>

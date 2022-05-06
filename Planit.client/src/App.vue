@@ -34,5 +34,8 @@ h1 {
 h5 {
   font-family: "Exo", Arial, Helvetica, sans-serif, sans-serif;
 }
+h6 {
+  font-family: "Exo", Arial, Helvetica, sans-serif, sans-serif;
+}
 @import "./assets/scss/main.scss";
 </style>

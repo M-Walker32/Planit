@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <div class="box">
-          <div class="d-flex justify-content-between m-2">
+          <div class="d-flex justify-content-between my-2">
             <h3 class="">Projects Page</h3>
             <button
               type="button"
@@ -55,10 +55,10 @@ export default {
   name: 'Home',
   setup() {
     onMounted(async () => {
-      await projectsService.getAllProjects()
+      await projectsService.getAllProjects(AppState.account)
     })
     return {
-      projects: computed(() => AppState.projects),
+      projects: computed(() => AppState.projects)
     }
   }
 }
