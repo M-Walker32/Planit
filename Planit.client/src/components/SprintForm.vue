@@ -1,8 +1,9 @@
 <template>
   <form @submit.prevent="createSprint">
     <div class="m-3">
-      <span class="" id=""></span>
+      <label for="sprint-name" class="visually-hidden">name your sprint</label>
       <input
+        id="sprint-name"
         type="text"
         class=""
         placeholder="Name your sprint"
@@ -16,6 +17,7 @@
         data-toggle="tooltip"
         data-placement="top"
         title="Cancel"
+        aria-label="cancel"
       >
         Cancel
       </button>
@@ -25,6 +27,7 @@
         data-toggle="tooltip"
         data-placement="top"
         title="Create Task"
+        aria-label="create task"
       >
         Run
       </button>

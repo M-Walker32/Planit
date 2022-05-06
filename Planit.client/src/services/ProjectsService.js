@@ -2,9 +2,10 @@ import { AppState } from "../AppState.js"
 import { api } from "./AxiosService.js"
 
 class ProjectsService {
-  async getAllProjects(){
+  async getAllProjects(account){
+    console.log(account)
     const res = await api.get('api/projects')
-    AppState.projects = res.data
+    AppState.projects = res.data.filter(p => p.creator.id == account.id)
   }
   async getProjectById(projectId){
     const res = await api.get(`api/projects/${projectId}`)

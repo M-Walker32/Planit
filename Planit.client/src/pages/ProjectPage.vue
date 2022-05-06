@@ -4,21 +4,24 @@
       <div class="col-12 my-5">
         <div class="d-flex">
           <h1>{{ activeProject.name }}</h1>
+          <div>
           <button
             @click="deleteProject"
             class="button-nice mx-2 on-hover"
             data-toggle="tooltip"
             data-placement="top"
             title="Delete Project"
+            aria-label="delete project"
           >
             Delete
           </button>
+           </div>
         </div>
         <p>{{ activeProject.description }}</p>
       </div>
       <div class="col-12">
         <div class="d-flex justify-content-between">
-          <h3 class="">Sprints</h3>
+          <h3>Sprints</h3>
           <button
             data-bs-toggle="modal"
             class="button-nice"
@@ -26,6 +29,7 @@
             data-toggle="tooltip"
             data-placement="top"
             title="Create Sprint"
+            aria-label="open new sprint menu"
           >
             +
           </button>
@@ -38,6 +42,7 @@
         class="fab bg-primary rounded selectable"
         data-bs-toggle="offcanvas"
         data-bs-target="#projects-selector"
+        aria-label="open the projects selector"
       >
         <i class="mdi mdi-arrow-expand-right"></i>
       </div>
@@ -86,7 +91,7 @@ import { projectsService } from "../services/ProjectsService.js"
 import { sprintsService } from "../services/SprintsService.js"
 import { tasksService } from "../services/TasksService.js"
 import { notesService } from "../services/NotesService.js"
-import { routes } from "../router.js"
+import { Offcanvas } from "bootstrap"
 export default {
   name: 'ProjectPage',
   setup() {
@@ -96,7 +101,7 @@ export default {
       route.params
       try {
         if (route.name == 'ProjectPage') {
-          await projectsService.getAllProjects()
+          await projectsService.getAllProjects(AppState.account)
           await projectsService.getProjectById(route.params.projectId)
           await sprintsService.getSprintsByProject(route.params.projectId)
           await tasksService.getTasksByProject(route.params.projectId)

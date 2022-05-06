@@ -1,20 +1,22 @@
 <template>
-  <div class="container">
-    <div class="row my-4 bg-grey rounded p-3 m-2">
-      <div class="col-2 align-items-center">
-        <img :src="note.creator.picture" class="img-fluid rounded-circle" />
+  <div class="container my-4 rounded bg-grey rounded p-3 ">
+    <div class="d-flex  m-2">
+      <div class="me-2">
+        <img :src="note.creator.picture" class="img-fluid rounded-circle profile-img" />
       </div>
-      <div class="col-10 align-items-center">
-        <div class="d-flex">
-          <h5 class="text-primary font-weight-bold">{{ note.creator.name }}</h5>
+      <div class="d-flex">
+        <div class="d-flex align-items-center">
+          <h6 class="text-primary font-weight-bold mb-0">{{ note.creator.name }}</h6>
           <i
-            class="m-1 mdi mdi-delete-outline on-hover"
+            class="m-1 mdi mdi-delete-outline selectable on-hover"
             title="Delete note"
             @click="deleteNote"
           ></i>
         </div>
-        <p class="m-1 p-0">{{ note.body }}</p>
       </div>
+    </div>
+    <div class="p-1 bg-white">
+      <p class="m-1 p-0">{{ note.body }}</p>
     </div>
   </div>
 </template>
@@ -52,4 +54,8 @@ export default {
 
 
 <style lang="scss" scoped>
+.profile-img {
+  max-width: 40px;
+  height: auto;
+}
 </style>

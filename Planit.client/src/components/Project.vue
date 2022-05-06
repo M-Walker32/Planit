@@ -20,6 +20,7 @@
 import { computed } from "@vue/reactivity"
 import { useRouter } from "vue-router"
 import { AppState } from "../AppState.js"
+import { Offcanvas } from "bootstrap"
 export default {
   props: {
     project: {
@@ -34,7 +35,6 @@ export default {
       async goToProject() {
         AppState.activeProject = AppState.projects.filter(p => props.project.id === p.id)
         router.replace({ name: 'ProjectPage', params: { projectId: props.project.id }, replace: true })
-
       }
     }
   }

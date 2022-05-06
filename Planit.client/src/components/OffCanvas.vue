@@ -1,6 +1,6 @@
 <template>
   <div tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-    <div class="offcanvas-header">
+    <div class="offcanvas-header border-primary border-bottom">
       <button
         type="button"
         class="btn-close text-reset"
@@ -9,7 +9,7 @@
       ></button>
       <slot name="offcanvas-header-slot"> </slot>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body mt-2">
       <slot name="offcanvas-task-slot"> </slot>
     </div>
     <div class="offcanvas-body">
@@ -17,3 +17,9 @@
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  .offcanvas-body{
+    min-height: 15%;
+  }
+</style>
