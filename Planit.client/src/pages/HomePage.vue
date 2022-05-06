@@ -54,11 +54,12 @@ import { projectsService } from "../services/ProjectsService.js"
 export default {
   name: 'Home',
   setup() {
-    onMounted(async () => {
-      await projectsService.getAllProjects(AppState.account)
-    })
+    // onMounted(async () => {
+    //   await projectsService.getAllProjects(AppState.account)
+    // })
     return {
-      projects: computed(() => AppState.projects)
+      projects: computed(() => AppState.projects),
+      account: computed(() => AppState.account),
     }
   }
 }

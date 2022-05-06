@@ -5,17 +5,17 @@
         <div class="d-flex">
           <h1>{{ activeProject.name }}</h1>
           <div>
-          <button
-            @click="deleteProject"
-            class="button-nice mx-2 on-hover"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Delete Project"
-            aria-label="delete project"
-          >
-            Delete
-          </button>
-           </div>
+            <button
+              @click="deleteProject"
+              class="button-nice mx-2 on-hover"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Delete Project"
+              aria-label="delete project"
+            >
+              Delete
+            </button>
+          </div>
         </div>
         <p>{{ activeProject.description }}</p>
       </div>
@@ -116,6 +116,7 @@ export default {
       sprints: computed(() => AppState.sprints),
       activeProject: computed(() => AppState.activeProject),
       projects: computed(() => AppState.projects),
+      account: computed(() => AppState.account),
       async deleteProject() {
         try {
           if (await Pop.confirm()) {
