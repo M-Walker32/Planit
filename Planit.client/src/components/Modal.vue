@@ -9,13 +9,13 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
+          <slot name="modal-title-slot"></slot>
           <button
             type="button"
-            class="btn-close"
+            class="btn-close align-flex-end"
             data-bs-dismiss="modal"
             aria-label="Close"
           ></button>
-          <slot name="modal-title-slot"></slot>
         </div>
 
         <div class="modal-body"><slot name="modal-body-slot"></slot></div>

@@ -63,36 +63,53 @@
         <form @submit.prevent="editAccount">
           <div class="d-flex justify-content-between">
             <div class="mb-3">
-              <label for="new-profile-title">Title:</label>
+              <p class="text-dark">Title:</p>
+              <label name="title"></label>
               <input
                 name="new-profile-title"
                 type="text"
-                class=""
+                class="input-group-text"
                 v-model="editable.title"
               />
             </div>
             <div class="mb-3">
-              <label for="new-profile-name">Name:</label>
+              <p class="text-dark">Name:</p>
               <input
                 name="new-profile-name"
                 type="text"
-                class=""
+                class="input-group-text"
                 v-model="editable.name"
               />
             </div>
           </div>
           <div class="mb-3">
-            <label for="new-profile-picture">Profile Picture url: </label>
+            <p class="text-dark">Picture:</p>
             <input
               name="new-profile-picture"
               type="text"
-              class=""
+              class="input-group-text"
               v-model="editable.picture"
             />
           </div>
-          <div>
-            <button data-bs-dismiss="modal">Cancel</button>
-            <button type="submit">Launch</button>
+          <div class="">
+            <button
+              class="button-nice bg-primary m-2"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Cancel"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              class="button-nice m-2"
+              type="submit"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Submit edits"
+            >
+              Submit
+            </button>
           </div>
         </form>
       </div>

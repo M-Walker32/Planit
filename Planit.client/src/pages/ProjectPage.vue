@@ -4,7 +4,15 @@
       <div class="col-12 my-5">
         <div class="d-flex">
           <h1>{{ activeProject.name }}</h1>
-          <button @click="deleteProject" class="button-nice">Delete</button>
+          <button
+            @click="deleteProject"
+            class="button-nice mx-2 on-hover"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Delete Project"
+          >
+            Delete
+          </button>
         </div>
         <p>{{ activeProject.description }}</p>
       </div>
@@ -15,6 +23,9 @@
             data-bs-toggle="modal"
             class="button-nice"
             data-bs-target="#create-sprint-modal"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Create Sprint"
           >
             +
           </button>
@@ -44,13 +55,13 @@
 
   <OffCanvas id="projects-selector" class="offcanvas offcanvas-start">
     <template #offcanvas-header-slot>
-      <h4>Projects</h4>
+      <h4 class="text-dark">Projects</h4>
     </template>
-    <template #offcanvas-note-slot>
+    <template #offcanvas-task-slot>
       <table class="table">
         <thead>
           <tr class="text-dark font">
-            <th scope="col">Name</th>
+            <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>

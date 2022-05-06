@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="createSprint">
-    <div class="mb-3">
+    <div class="m-3">
       <span class="" id=""></span>
       <input
         type="text"
@@ -10,8 +10,24 @@
       />
     </div>
     <div>
-      <button data-bs-dismiss="modal">Cancel</button>
-      <button type="submit">Run</button>
+      <button
+        data-bs-dismiss="modal"
+        class="button-nice mx-2"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Cancel"
+      >
+        Cancel
+      </button>
+      <button
+        class="button-nice"
+        type="submit"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Create Task"
+      >
+        Run
+      </button>
     </div>
   </form>
 </template>

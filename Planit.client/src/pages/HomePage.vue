@@ -7,11 +7,14 @@
             <h3 class="">Projects Page</h3>
             <button
               type="button"
-              class="btn btn-primary btn-lg"
+              class="button-nice"
               data-bs-toggle="modal"
               data-bs-target="#create-project-modal"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Create Project"
             >
-              Create Project
+              +
             </button>
           </div>
           <div class="p-4 shadow bg-secondary rounded">

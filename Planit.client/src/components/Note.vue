@@ -1,13 +1,17 @@
 <template>
   <div class="container">
-    <div class="row my-4">
-      <div class="col-2">
+    <div class="row my-4 bg-grey rounded p-3 m-2">
+      <div class="col-2 align-items-center">
         <img :src="note.creator.picture" class="img-fluid rounded-circle" />
       </div>
-      <div class="col-10">
+      <div class="col-10 align-items-center">
         <div class="d-flex">
-          <h5>{{ note.creator.name }}</h5>
-          <i class="m-1 mdi mdi-delete-outline" @click="deleteNote"></i>
+          <h5 class="text-primary font-weight-bold">{{ note.creator.name }}</h5>
+          <i
+            class="m-1 mdi mdi-delete-outline on-hover"
+            title="Delete note"
+            @click="deleteNote"
+          ></i>
         </div>
         <p class="m-1 p-0">{{ note.body }}</p>
       </div>

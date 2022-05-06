@@ -14,17 +14,17 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <router-link
-            :to="{ name: 'About' }"
-            class="btn selectable text-light text-uppercase"
-          >
-            About
-          </router-link>
-        </li>
-      </ul>
+    <div
+      class="collapse navbar-collapse justify-content-between"
+      id="navbarText"
+    >
+      <div class="d-flex">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/183/183869.png"
+          height="40"
+        />
+        <h3 class="text-light m-1">Plan-it</h3>
+      </div>
       <!-- LOGIN COMPONENT HERE -->
       <Login />
     </div>

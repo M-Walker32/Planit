@@ -2,26 +2,29 @@
   <form :id="'create-task-' + sprint.id" @submit.prevent="createTask">
     <div class="mb-3">
       <span class="" id=""></span>
-      <input
-        type="text"
-        class=""
-        placeholder="Name your task"
-        v-model="editable.name"
-      />
+      <input type="text" placeholder="Name your task" v-model="editable.name" />
     </div>
     <div class="mb-3">
       <span class="" id=""></span>
       <input
         type="number"
-        class=""
         placeholder="Task weight"
         v-model="editable.weight"
       />
     </div>
   </form>
   <div>
-    <button data-bs-dismiss="modal">Cancel</button>
-    <button :form="'create-task-' + sprint.id" type="submit">Launch</button>
+    <button data-bs-dismiss="modal" class="button-nice" title="Cancel">
+      Cancel
+    </button>
+    <button
+      :form="'create-task-' + sprint.id"
+      type="submit"
+      class="button-nice mx-2"
+      title="Create Task"
+    >
+      Create
+    </button>
   </div>
 </template>
 

@@ -1,12 +1,15 @@
 
 <template>
-  <tr class="selectable bg-secondary lighten-20" @click="goToProject">
+  <tr
+    class="selectable bg-secondary lighten-20"
+    data-toggle="tooltip"
+    data-placement="top"
+    :title="project.name + ' Page'"
+    @click="goToProject"
+  >
     <td>{{ project.name }}</td>
     <td>
-      <img class="profile-img rounded" :src="account.picture" alt="" /><img
-        src=""
-        alt=""
-      /><img src="" alt="" />
+      <img class="profile-img rounded" :src="account.picture" alt="" />
     </td>
     <td>{{ new Date(project.createdAt).toDateString() }}</td>
   </tr>

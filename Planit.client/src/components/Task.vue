@@ -1,29 +1,20 @@
 <template>
   <div class="d-flex justify-content-between m-2">
-    <div>
+    <div class="align-items-center">
       <input
         type="checkbox"
         name=""
         id=""
         :checked="task.isComplete"
         @click="toggleComplete"
+        class="mx-2"
       />
       <span>{{ task.name }}</span>
-      <i class="mdi mdi-delete-outline" @click="deleteTask"></i>
-    </div>
-    <div class="d-flex justify-content-between">
-      <div>
-        <span>{{ numNotes }}</span>
-        <i
-          class="mdi mdi-note selectable text-primary darken-10"
-          data-bs-toggle="offcanvas"
-          :data-bs-target="'#task-details-' + task.id"
-        ></i>
-      </div>
-      <div>
-        <span>{{ task.weight }}</span>
-        <i class="mdi mdi-weight text-primary darken-10"></i>
-      </div>
+      <i
+        class="mdi mdi-delete-outline on-hover"
+        title="Delete Task"
+        @click="deleteTask"
+      ></i>
     </div>
     <div>
       <div class="dropdown">
@@ -36,6 +27,7 @@
         >
           Select Sprint
         </button>
+
         <ul
           v-for="s in sprints"
           :key="s.id"
@@ -51,6 +43,21 @@
             </li>
           </div>
         </ul>
+        <div class="d-flex justify-content-end">
+          <div>
+            <span>{{ numNotes }}</span>
+            <i
+              class="mdi mdi-note selectable text-primary"
+              data-bs-toggle="offcanvas"
+              title="View notes"
+              :data-bs-target="'#task-details-' + task.id"
+            ></i>
+          </div>
+          <div class="mx-2">
+            <span>{{ task.weight }}</span>
+            <i class="mdi mdi-weight text-dark"></i>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -60,19 +67,16 @@
       {{ task.sprint.name }}
     </template>
     <template #offcanvas-task-slot>
-      <!-- task deeets -->
-      im a task
-    </template>
-    <template #offcanvas-note-slot>
-      <label for="add-note-input">Add a note</label>
+      <h5><label for="add-note-input">Add a note</label></h5>
       <form @submit.prevent="createNote">
         <input
           name="add-note-input"
+          class="w-75"
           type="text"
           v-model="editable.body"
-          placeholder="say sumthin"
+          placeholder="create a new note"
         />
-        <button type="submit" class="button-nice">+</button>
+        <button type="submit" title="create note" class="button-nice">+</button>
       </form>
       <Note v-for="n in notes" :key="n.id" :note="n" />
       <!-- notes go here -->

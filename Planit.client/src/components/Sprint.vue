@@ -1,9 +1,28 @@
 <template>
-  <div class="d-flex my-2 bg-dark rounded p-3 col-12 justify-content-between">
-    <div class="d-flex p-2 align-items-center">
+  <div
+    class="
+      d-flex
+      my-2
+      bg-dark
+      rounded
+      p-3
+      col-md-12
+      align-self-center
+      justify-content-between
+    "
+  >
+    <div class="d-flex p-2 align-items-center text-wrap">
       <i class="m-2 mdi mdi-account-cowboy-hat"></i>
       <h3 class="m-2 text-light">{{ sprint.name }}</h3>
-      <button @click="deleteSprint" class="button-nice">Delete Sprint</button>
+      <button
+        @click="deleteSprint"
+        class="button-nice on-hover mx-2"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Delete Sprint"
+      >
+        Delete
+      </button>
     </div>
     <div class="p-2 d-flex align-items-center">
       <span>{{ totalWeight }}</span>
@@ -11,20 +30,25 @@
     </div>
     <div class="d-flex align-items-center">
       <button
-        class="button-nice"
+        class="button-nice mx-2"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Create Task"
         data-bs-toggle="modal"
         :data-bs-target="'#create-task-modal-' + sprint.id"
       >
-        Add Task
+        +
       </button>
-      <h5>{{ completedTasks }} / {{ totalTasks }}</h5>
+      <h5 class="align-items-bottom">
+        {{ completedTasks }} / {{ totalTasks }}
+      </h5>
     </div>
   </div>
   <Task v-for="task in tasks" :key="task.id" :task="task" />
 
   <Modal :id="'create-task-modal-' + sprint.id">
     <template #modal-title-slot>
-      <h6>{{ sprint.name }} > Create Task</h6>
+      <h5>{{ sprint.name }} > Create Task</h5>
     </template>
     <template #modal-body-slot>
       <TaskForm :sprint="sprint" />
